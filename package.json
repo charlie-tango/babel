@@ -1,0 +1,54 @@
+{
+  "name": "babel-preset-ct",
+  "version": "1.0.0",
+  "description": "Babel preset used by Charlie Tango",
+  "repository": "https://github.com/charlie-tango/babel-preset-ct",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/charlie-tango/babel-preset-ct/issues"
+  },
+  "files": [
+    "index.js"
+  ],
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "test": "npm run test:dev && npm run test:prod && npm run test:test",
+    "test:dev": "NODE_ENV=development jest ./__tests__/test-babel.js",
+    "test:prod": "NODE_ENV=production jest ./__tests__/test-babel.js",
+    "test:test": "NODE_ENV=test jest ./__tests__/test-babel.js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0-rc.1",
+    "@babel/runtime": "^7.0.0-rc.1",
+    "object-assign": "4.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-rc.2",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-rc.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-rc.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-rc.1",
+    "@babel/plugin-transform-destructuring": "^7.0.0-rc.1",
+    "@babel/plugin-transform-regenerator": "^7.0.0-rc.1",
+    "@babel/plugin-transform-runtime": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/preset-flow": "^7.0.0-rc.1",
+    "@babel/preset-react": "^7.0.0-rc.1",
+    "@babel/register": "^7.0.0-rc.1",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "8.0.0-beta.0",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-macros": "^2.4.0",
+    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-transform-dynamic-import": "^2.0.0",
+    "babel-plugin-transform-imports": "^1.5.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.14",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "jest": "^23.5.0",
+    "react-hot-loader": "^4.3.4",
+    "regenerator-runtime": "^0.12.1"
+  }
+}
