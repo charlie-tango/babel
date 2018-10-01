@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-ct",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Babel preset used by Charlie Tango",
   "repository": "https://github.com/charlie-tango/babel-preset-ct",
   "license": "MIT",
