@@ -1,4 +1,4 @@
-# babel-preset-ct
+# @charlietango/babel
 
 Babel preset to configure a setup that allows us to work with React alongside
 Flow or Typescript.
@@ -10,7 +10,7 @@ your project:
 
 ```json
 {
-  "presets": ["ct"]
+  "presets": ["@charlietango/babel"]
 }
 ```
 
