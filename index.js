@@ -1,31 +1,28 @@
-'use strict';
+'use strict'
 
 module.exports = function(api, opts) {
-  if (!opts) {
-    opts = {};
-  }
-
   // This is similar to how `env` works in Babel:
   // https://babeljs.io/docs/usage/babelrc/#env-option
   // We are not using `env` because it’s ignored in versions > babel-core@6.10.4:
   // https://github.com/babel/babel/issues/4539
   // https://github.com/facebook/create-react-app/issues/720
   // It’s also nice that we can enforce `NODE_ENV` being specified.
-  const env = process.env.BABEL_ENV || process.env.NODE_ENV;
-  const isEnvDevelopment = env === 'development';
-  const isEnvProduction = env === 'production';
-  const isEnvTest = env === 'test';
-  const isServer = env === 'server';
+  const env = process.env.BABEL_ENV || process.env.NODE_ENV
+  const isEnvDevelopment = env === 'development'
+  const isEnvProduction = env === 'production'
+  const isEnvTest = env === 'test'
+  const isServer = env === 'server'
 
   if (!isEnvDevelopment && !isEnvProduction && !isEnvTest && !isServer) {
     throw new Error(
-      'Using `babel-preset-react-app` requires that you specify `NODE_ENV` or ' +
+      'Using `babel-preset-ct` requires that you specify `NODE_ENV` or ' +
         '`BABEL_ENV` environment variables. Valid values are "development", ' +
         '"test", "server" and "production". Instead, received: ' +
         JSON.stringify(env) +
-        '.'
-    );
+        '.',
+    )
   }
+
   return {
     presets: [
       isEnvTest && [
@@ -46,9 +43,12 @@ module.exports = function(api, opts) {
           // static code analysis to determine what's required.
           // This is probably a fine default to help trim down bundles when
           // end-users inevitably import '@babel/polyfill'.
-          useBuiltIns: 'usage',
+          useBuiltIns: 'entry',
+          corejs: 3,
           // Do not transform modules to CJS
           modules: false,
+          // Exclude transforms that make all code slower
+          exclude: ['transform-typeof-symbol'],
         },
       ],
       [
@@ -63,6 +63,7 @@ module.exports = function(api, opts) {
         },
       ],
       [require('@babel/preset-flow').default],
+      [require('@babel/preset-typescript').default],
     ].filter(Boolean),
     plugins: [
       // Experimental macros support. Will be documented after it's had some time
@@ -94,8 +95,10 @@ module.exports = function(api, opts) {
       [
         require('@babel/plugin-transform-runtime').default,
         {
+          corejs: false,
           helpers: false,
           regenerator: true,
+          useESModules: true,
         },
       ],
       isEnvProduction && [
@@ -105,38 +108,12 @@ module.exports = function(api, opts) {
           removeImport: true,
         },
       ],
-      // function* () { yield 42; yield 43; }
-      !isEnvTest && [
-        require('@babel/plugin-transform-regenerator').default,
-        {
-          // Async functions are converted to generators by @babel/preset-env
-          async: false,
-        },
-      ],
       // Adds syntax support for import()
       require('@babel/plugin-syntax-dynamic-import').default,
-      (isEnvTest || isServer) &&
-        // Transform dynamic import to require
-        require('babel-plugin-transform-dynamic-import').default,
-      [
-        require('babel-plugin-styled-components'),
-        { ssr: true, displayName: !isEnvProduction, minify: true },
-      ],
-      [
-        require('babel-plugin-transform-imports'),
-        {
-          'react-router': {
-            transform: 'react-router/${member}',
-            preventFullImport: true,
-          },
-          'react-router-dom': {
-            transform: 'react-router-dom/${member}',
-            preventFullImport: true,
-          },
-        },
-      ],
+      require('@babel/plugin-proposal-optional-chaining').default,
+      require('@babel/plugin-proposal-nullish-coalescing-operator').default,
       [require('babel-plugin-lodash')],
       [require('react-hot-loader/babel')],
     ].filter(Boolean),
-  };
-};
+  }
+}

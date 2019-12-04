@@ -1,34 +1,42 @@
 # babel-preset-ct
-<!-- Build Status -->
-<!-- <a href="https://travis-ci.org/InSilicoCPH/babel-preset-insilico-react-app">
-  <img src="https://travis-ci.org/InSilicoCPH/babel-preset-insilico-react-app.svg" alt="Build Status" />
-</a> -->
 
-Babel preset for React Apps created at Charlie Tango
+Babel preset to configure a setup that allows us to work with React alongside
+Flow or Typescript.
 
-Create a file named `.babelrc` with following contents in the root folder of your project:
+## Installation
 
-```js
+Create a file named `.babelrc` with following contents in the root folder of
+your project:
+
+```json
 {
   "presets": ["ct"]
 }
 ```
 
-You can send options along, that will be passed directly to `babel-preset-env`: https://github.com/babel/babel-preset-env.
+### Extra plugins
 
-```js
+* `babel-plugin-lodash` - Ensures lodash is optimized when imported
+* `babel-plugin-macros` - Enable support for macros
+* `react-hot-loader` - Support hot reloading of react
+
+### CSS-in-JS
+
+If you need to use a CSS-in-JS framework, you should add the presets/plugins to
+the babel configuration according to the documentation.
+
+#### [styled-components](https://www.styled-components.com/docs/tooling#babel-plugin)
+
+```json
 {
-   "presets": [
-        [
-          "ct",
-          {
-            "modules": "commonjs"
-          }
-        ]
-      ]
+  "plugins": ["babel-plugin-styled-components"]
 }
 ```
 
-By default modules (import/export) will not be transformed. If you need to that, you can either pass the relevant option or set the `MODULES` environment variable.
+#### [emotion](https://emotion.sh/docs/@emotion/babel-preset-css-prop)
 
-Valid vaules: `"amd"` | `"umd"` | `"systemjs"` | `"commonjs"` | `false`.
+```json
+{
+  "presets": ["@emotion/babel-preset-css-prop"]
+}
+```
