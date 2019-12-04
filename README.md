@@ -5,6 +5,12 @@ Flow or Typescript.
 
 ## Installation
 
+Install the preset from NPM:
+
+```sh
+yarn add @charlietango/babel --dev
+```
+
 Create a file named `.babelrc` with following contents in the root folder of
 your project:
 
