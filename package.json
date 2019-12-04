@@ -4,6 +4,9 @@
   "description": "Babel preset used by Charlie Tango",
   "repository": "https://github.com/charlie-tango/babel",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "bugs": {
     "url": "https://github.com/charlie-tango/babel/issues"
   },
